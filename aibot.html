@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SafePay | Smart Investment Advisor</title>
+<link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+</head>
+
+<body>
+
+<header>
+  <h1 style="color:#133C55;">SafePay</h1>
+  <nav >
+        <a href="home.html"><b>Home</b></a> 
+        <a href="about.html"><b>About</b></a> 
+        <a href="profile.html"><b>profile</b></a>
+        <a href="contact.html"><b>Contacts</b></a>
+        <a href="login.html" style="margin-left:  1400px; "><b>LogOut</b></a>
+    </nav>
+
+</header>
+
+<div class="recipt">
+  <h2>Smart Investment Advisor</h2>
+
+  <input type="number" id="amount" placeholder="Investment Amount (₹)">
+  
+  <select >
+    <option value="">Select Risk Level</option>
+    <option>Low</option>
+    <option>Medium</option>
+    <option>High</option>
+  </select>
+
+  <select >
+    <option value="">Investment Duration</option>
+    <option>Short Term (≤1 year)</option>
+    <option>Medium Term (1–5 years)</option>
+    <option>Long Term (5+ years)</option>
+  </select>
+
+  <select >
+    <option value="">Investment Type</option>
+    <option>One-Time</option>
+    <option>Monthly (SIP)</option>
+  </select>
+
+  <button onclick="analyzeInvestment()">Analyze Investment</button>
+
+  <pre>Your personalized investment advice will appear here.</pre>
+</div>
+
+
+<h4>Disclaimer:Education purpose only</h4>
+
+
+<script>
+function analyzeInvestment() {
+  const amount = Number(document.getElementById("amount").value);
+  const risk = document.getElementById("risk").value;
+  const duration = document.getElementById("duration").value;
+  const type = document.getElementById("type").value;
+  const output = document.getElementById("output");
+
+  if (!amount || !risk || !duration || !type) {
+    output.innerText = "Please fill all fields for accurate analysis.";
+    return;
+  }
+
+  let category = amount < 50000 ? "Small Capital" :
+                 amount < 500000 ? "Moderate Capital" :
+                 "High Capital";
+
+  let plans = [];
+  let warnings = [];
+
+  if (risk === "Low") {
+    plans.push("Fixed Deposits", "PPF", "Government Bonds");
+    warnings.push("Returns may be lower but stable");
+  }
+
+  if (risk === "Medium") {
+    plans.push("Index Mutual Funds", "Balanced Funds", "Gold ETFs");
+    warnings.push("Market fluctuations possible");
+  }
+
+  if (risk === "High") {
+    plans.push("Equity Mutual Funds", "ETFs", "Sectoral Funds");
+    warnings.push("High volatility and risk involved");
+  }
+
+  if (duration.includes("Short")) {
+    plans = plans.filter(p => !p.includes("Equity"));
+    warnings.push("Avoid long-term equity for short duration");
+  }
+
+  if (amount < 20000 && risk === "High") {
+    warnings.push("High risk not advised for small capital");
+  }
+
+  let diversification = risk === "High" ? "Diversification is critical" :
+                         "Diversification recommended";
+
+  output.innerText = `
+INVESTMENT PROFILE
+• Amount: ₹${amount}
+• Category: ${category}
+• Risk Level: ${risk}
+• Duration: ${duration}
+• Type: ${type}
+
+RECOMMENDED OPTIONS
+• ${plans.join("\n• ")}
+
+STRATEGY NOTES
+• ${diversification}
+• Invest through trusted institutions
+• Review portfolio annually
+
+SAFETY WARNINGS
+• ${warnings.join("\n• ")}
+• No guaranteed returns
+• Avoid schemes promising quick profits
+`;
+}
+</script>
+
+</body>
+</html>
