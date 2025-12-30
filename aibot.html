@@ -58,72 +58,83 @@
 
 
 <script>
+function normalizeRisk(text) {
+  text = text.toLowerCase();
+  if (text.includes("low") || text.includes("safe")) return "Low";
+  if (text.includes("high") || text.includes("aggressive")) return "High";
+  return "Medium";
+}
+
 function analyzeInvestment() {
-  const amount = Number(document.getElementById("amount").value);
-  const risk = document.getElementById("risk").value;
-  const duration = document.getElementById("duration").value;
-  const type = document.getElementById("type").value;
-  const output = document.getElementById("output");
+  let amount = Number(document.getElementById("amount").value);
+  let risk = normalizeRisk(document.getElementById("risk").value);
+  let duration = document.getElementById("duration").value;
+  let type = document.getElementById("type").value;
+  let output = document.getElementById("output");
 
   if (!amount || !risk || !duration || !type) {
-    output.innerText = "Please fill all fields for accurate analysis.";
+    output.innerText = "Please provide complete details.";
     return;
   }
 
-  let category = amount < 50000 ? "Small Capital" :
-                 amount < 500000 ? "Moderate Capital" :
-                 "High Capital";
+ 
+  let riskScore = risk === "Low" ? 20 : risk === "Medium" ? 50 : 80;
+  let longTerm = duration.includes("Long");
+  let growthBias = longTerm ? 1.2 : 0.8;
 
-  let plans = [];
-  let warnings = [];
-
+  let portfolio = [];
   if (risk === "Low") {
-    plans.push("Fixed Deposits", "PPF", "Government Bonds");
-    warnings.push("Returns may be lower but stable");
+    portfolio = [
+      "50% Fixed Deposits / Bonds",
+      "30% Index Mutual Funds",
+      "20% Gold / Liquid funds"
+    ];
+  } else if (risk === "Medium") {
+    portfolio = [
+      "50% Index Mutual Funds",
+      "25% Debt Funds",
+      "15% Gold",
+      "10% Cash"
+    ];
+  } else {
+    portfolio = [
+      "65% Equity Mutual Funds",
+      "20% Index ETFs",
+      "10% Gold",
+      "5% Cash"
+    ];
   }
 
-  if (risk === "Medium") {
-    plans.push("Index Mutual Funds", "Balanced Funds", "Gold ETFs");
-    warnings.push("Market fluctuations possible");
+
+  let warnings = [
+    "No investment guarantees profits",
+    "Avoid platforms promising fixed high returns"
+  ];
+
+  if (!longTerm && risk === "High") {
+    warnings.push("High risk is unsuitable for short-term goals");
   }
 
-  if (risk === "High") {
-    plans.push("Equity Mutual Funds", "ETFs", "Sectoral Funds");
-    warnings.push("High volatility and risk involved");
-  }
-
-  if (duration.includes("Short")) {
-    plans = plans.filter(p => !p.includes("Equity"));
-    warnings.push("Avoid long-term equity for short duration");
-  }
-
-  if (amount < 20000 && risk === "High") {
-    warnings.push("High risk not advised for small capital");
-  }
-
-  let diversification = risk === "High" ? "Diversification is critical" :
-                         "Diversification recommended";
-
+  
   output.innerText = `
 INVESTMENT PROFILE
 • Amount: ₹${amount}
-• Category: ${category}
-• Risk Level: ${risk}
-• Duration: ${duration}
-• Type: ${type}
+• Risk Preference: ${risk}
+• Time Horizon: ${duration}
+• Investment Style: ${type}
 
-RECOMMENDED OPTIONS
-• ${plans.join("\n• ")}
+RECOMMENDED PORTFOLIO
+• ${portfolio.join("\n• ")}
 
-STRATEGY NOTES
-• ${diversification}
-• Invest through trusted institutions
-• Review portfolio annually
+WHY THIS WORKS
+• Diversification balances risk and growth
+• Aligned with your time horizon
+• Reduces downside volatility
 
-SAFETY WARNINGS
+SAFETY & BEST PRACTICES
 • ${warnings.join("\n• ")}
-• No guaranteed returns
-• Avoid schemes promising quick profits
+• Review portfolio yearly
+• Increase equity exposure gradually
 `;
 }
 </script>
@@ -131,3 +142,4 @@ SAFETY WARNINGS
 </body>
 
 </html>
+
