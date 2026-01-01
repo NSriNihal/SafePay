@@ -10,15 +10,28 @@
     
     <h1 style="color:#133C55;">SafePay</h1>
     
-    <form action="home.html" align = center>
+    <form  align = center>
     <h2 style="font-size: 40px;">login</h2>
-    <input type="text" placeholder="examle@gmail.com" ><br><br>
-    <input type="password" placeholder="password"><br><br>
-    <input type="submit" value="login"><br><br>
+    <input type="text" placeholder="examle@gmail.com" id="mail"><br><br>
+    <input type="password" placeholder="password" id="pass"><br><br>
+    <button type="button" onclick="login()">Login</button>
 
     </form>
    
-    
+    <script>
+        function login(){
+            var x = document.getElementById("mail").value;
+            var y = document.getElementById("pass").value;
+
+            if(x == "nihal@gmail.com"&& y == 123456){
+                window.location.href = "home.html";
+            }
+            else{
+                alert("Invalid Id or Password");
+            }
+
+        }
+    </script>
 
 </body>
 </html>
