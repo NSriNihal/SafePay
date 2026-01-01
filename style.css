@@ -1,7 +1,10 @@
 body{ 
     background-color: #84D2F6;
     font-family: Arial;
+
+   
 }
+
 header{
     position:sticky;
     top: 0;
@@ -12,9 +15,10 @@ nav{
     background-color: #f0f3f5;
     padding: 10px;
     border-radius: 20px;
-    border: 3px solid black;
+    /* border: 3px solid black; */
     font-weight: bold;
-    /* box-shadow: 0 0 10px; */
+    box-shadow: 0px 2px 8px;
+  
 }
 nav a{
     padding: 30px;
@@ -25,14 +29,22 @@ nav a{
         
 nav a:hover{
     color: blueviolet;
+    
 }
+
+
+
 form{
     margin: auto;
-    background-color:#59A5D8;
+    /* background-color:#59A5D8; */
     border-radius: 20px;
     width: 500px;
     /* box-shadow: 0 0 10px; */
     margin-top: 60px;
+    /* background: rgba(255, 255, 255, 0.2); */
+    backdrop-filter: blur(10px);
+  
+   box-shadow: 0 8px 32px rgba(0,0,0,0.2);
 }
             
  a{
@@ -47,6 +59,7 @@ a:hover {
 input {
     font-size: 20px;
     padding: 10px;
+    border-radius: 10px;
 }
 table {
     width: 80%;
@@ -65,7 +78,7 @@ td {
     text-align: center;
 }
 .box{
-    height: 200px;
+     height: 200px;
     width: 200px;
     /* border: 3px solid rgb(12, 12, 14); */
     padding: 20px;
@@ -76,16 +89,23 @@ td {
     background-color:#59A5D8;
     vertical-align: top;
     box-shadow: 0 0 10px;
+ 
+    
+ 
 }
+
+.box:hover {
+    transform: scale(1.2); 
+    transition: transform 0.2s;
+}
+
 .profile{
      
             
     background-color:#59A5D8;
     border-radius: 5px;
     width: auto;
-            
-            
-        
+       
 }
 
 .recipt{
@@ -100,6 +120,21 @@ td {
     background-color:#59A5D8;
     vertical-align: top;
 }
+button {
+    font-size: 18px;
+    padding: 10px ;
+    border-radius: 10px;
+    margin: 20px;
+    background-color: white;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+
+
 
 
   
