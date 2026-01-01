@@ -8,13 +8,29 @@
 </head>
 <body>
     <h1 style="color:#133C55;">SafePay</h1>
-    <form action="sucesses.html" align = center>
+    <form  align = center >
     <h2>Enter OTP</h2>
+    <h6>(123456)</h6>
     
-    <input type="number" placeholder="enter 6 digit OTP" maxlength="6"><br><br> 
-    <input type="submit" value="send"><br><br>
+    <input type="text" placeholder="enter 6 digit OTP" maxlength="6" id="otp"><br><br> 
+    <!-- <input type="submit" value="send"><br><br> -->
+     <button type="button" onclick="checkotp()">Verify</button>
 
     </form>
-  
+  <script>
+    function checkotp(){
+        let otp = document.getElementById("otp").value;
+        if (otp.length !== 6) {
+        alert("Please enter a 6-digit OTP");
+        }
+        else if(otp == 123456){
+           window.location.href = "sucesses.html";
+        }
+        else{
+            alert("Incorrect OTP");
+        }
+    }
+  </script>
+
 </body>
 </html>
