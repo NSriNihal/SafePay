@@ -17,14 +17,38 @@
         <a href="login.html" style="margin-left:  1400px; "><b>LogOut</b></a>
     </nav>
     </header>
-    <form action="otp.html" align = center>
+    <form align = center>
         <h1>Transfer Funds</h1>
-        <br><input type="text" placeholder=" Your Account number"><br><br>
-        <br><input type="text" placeholder="Recivers Account number"><br><br>
-        <input type="text" placeholder="Enter Ammount"><br><br>
-        <input type="password" placeholder="Enter pin"><br><br>
-        <input type="submit" value="submit"><br>
+        <br><input type="text" placeholder=" Your Account number" id="accno"><br><br>
+        <input type="text" placeholder="Recivers Account number" id="raccno"><br><br>
+        <input type="number" placeholder="Enter Ammount" id="ammo"><br><br>
+        <input type="password" placeholder="Enter pin" id="pass"><br><br>
+        <button type="button" onclick="submiting()">Send</button>
     </form>
+    <script>
+        function submiting(){
+
+            var accno = document.getElementById("accno").value;
+            var raccno = document.getElementById("raccno").value;
+            var ammo = document.getElementById("ammo").value;
+            var pass = document.getElementById("pass").value;
+
+            if(accno.length ==0||raccno.length ==0||ammo.length ==0||pass.length ==0){
+                alert("Fill All The Feilds Properly");
+            }
+
+            else if(ammo == 0){
+                alert("Enter a Valid Ammount");
+            }
+            else if(pass == 123456){
+                window.location.href = "otp.html"
+            }
+            else{
+                alert("Wrong Pin or incorrect information");
+            }
+
+        }
+    </script>
 
     
 </body>
