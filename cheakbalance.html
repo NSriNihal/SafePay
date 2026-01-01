@@ -18,12 +18,27 @@
     </nav>
     </header>
     <div>
-    <form action="balance.html" align = center>
+    <form align = center>
    
     <h1>Cheak balance</h1>
-    <input type="password" placeholder="password"><br><br>
-    <input type="submit" value="check"><br><br>
+    <input type="password" placeholder="password" id="pass"><br><br>
+    <button type="button" onclick="checkpass()">Cheak</button>
     </div>
+
+    <script>
+        function checkpass(){
+            let x = document.getElementById("pass").value;
+            if(x.length == 0){
+                alert("Fill The Given Feild");
+            }
+            else if(x == 123456){
+                window.location.href = "balance.html";
+            }
+            else{
+                alert("Incorrect Password");
+            }
+        }
+    </script>
     
 </body>
 </html>
