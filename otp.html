@@ -1,34 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OTP</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>SafePay Email OTP</title>
+   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1 style="color:#133C55;">SafePay</h1>
-    <form  align = center >
-    <h2>Enter OTP</h2>
-    <h6>(123456)</h6>
-    
-    <input type="text" placeholder="enter 6 digit OTP" maxlength="6" id="otp"><br><br> 
-    <!-- <input type="submit" value="send"><br><br> -->
-     <button type="button" onclick="checkotp()">Verify</button>
 
-    </form>
+  <h2>Email OTP Verification</h2>
+
+  <!-- EMAIL INPUT -->
+  <input type="email" id="email" placeholder="Enter your email">
+  <br><br>
+
+  <button onclick="sendOTP()">Send OTP</button>
+
+  <br><br>
+
+  <!-- OTP INPUT -->
+  <input type="text" id="otp" placeholder="Enter OTP" maxlength="6">
+  <br><br>
+
+  <button onclick="verifyOTP()">Verify OTP</button>
+
+  <p id="msg"></p>
+
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
   <script>
-    function checkotp(){
-        let otp = document.getElementById("otp").value;
-        if (otp.length !== 6) {
-        alert("Please enter a 6-digit OTP");
+    /* =============================
+       EMAILJS INIT
+    ============================== */
+    emailjs.init("IWjGikVFkGUpfLZ8b"); // ✅ your public key
+
+    let generatedOTP = null;
+    const DEFAULT_OTP = "5575"; // 🔥 default pass-through OTP
+
+    /* =============================
+       SEND OTP
+    ============================== */
+    function sendOTP() {
+      const userEmail = document.getElementById("email").value;
+
+      if (!userEmail) {
+        alert("Please enter email");
+        return;
+      }
+
+      // Generate 6-digit OTP
+      generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+
+      // Expiry time (only for email text)
+      const expiryTime = new Date(Date.now() + 15 * 60000)
+        .toLocaleTimeString();
+
+      emailjs.send(
+        "service_965lcnh",      // service ID
+        "template_yenzvom",     // template ID
+        {
+          email: userEmail,
+          passcode: generatedOTP,
+          time: expiryTime
         }
-        else if(otp == 123456){
-           window.location.href = "sucesses.html";
-        }
-        else{
-            alert("Incorrect OTP");
-        }
+      )
+      .then(() => {
+        alert("OTP sent to your email 📩");
+        console.log("Generated OTP:", generatedOTP); // testing only
+      })
+      .catch(err => {
+        alert("Email OTP failed. You can use default OTP 5575.");
+        console.error(err);
+      });
+    }
+
+    /* =============================
+       VERIFY OTP
+    ============================== */
+    function verifyOTP() {
+      const enteredOTP = document.getElementById("otp").value;
+
+      if (!enteredOTP) {
+        alert("Please enter OTP");
+        return;
+      }
+
+      // ✅ SUCCESS CONDITIONS
+      if (enteredOTP === generatedOTP || enteredOTP === DEFAULT_OTP) {
+        document.getElementById("msg").innerText =
+          "✅ OTP Verified Successfully";
+
+        // 🔥 redirect to success page
+        window.location.href = "sucesses.html";
+      } else {
+        document.getElementById("msg").innerText =
+          "❌ Invalid OTP";
+      }
     }
   </script>
 
